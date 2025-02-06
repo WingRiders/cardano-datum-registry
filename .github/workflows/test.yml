@@ -1,12 +1,13 @@
-name: Validate CDDL Files
+name: Run tests
 
 on:
   pull_request:
-    paths_ignore:
+    paths:
+      - 'src/**'
       - 'test/**'
 
 jobs:
-  validate-cddl:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,4 +24,4 @@ jobs:
         run: bun check
 
       - name: Validate CDDL files
-        run: bun validate
+        run: bun test
