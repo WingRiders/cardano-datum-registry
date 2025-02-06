@@ -1,0 +1,58 @@
+Pool = #6.121([ requestValidatorHash : bytes
+              , assetASymbol         : bytes
+              , assetAToken          : bytes
+              , assetBSymbol         : bytes
+              , assetBToken          : bytes
+              , swapFeeInBasis       : int
+              , protocolFeeInBasis   : int
+              , projectFeeInBasis    : int
+              , reserveFeeInBasis    : int
+              , feeBasis             : int
+              , agentFeeAda          : int
+              , lastInteraction      : int
+              , treasuryA            : int
+              , treasuryB            : int
+              , projectTreasuryA     : int
+              , projectTreasuryB     : int
+              , reserveTreasuryA     : int
+              , reserveTreasuryB     : int
+              , projectBeneficiary   : MaybeAddress
+              , reserveBeneficiary   : MaybeAddress
+              , poolSpecifics        : ConstantProductPoolDatum / StableswapPoolDatum
+              ])
+
+MaybeAddress = JustAddress / Nothing
+
+JustAddress = #6.121([Address])
+
+Address = #6.121([ addressCredential        : AddressCredential
+                 , addressStakingCredential : MaybeStakingCredential
+                 ])
+
+AddressCredential = PubKeyCredential / ScriptCredential
+
+PubKeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+MaybeStakingCredential = JustStakingCredential / Nothing
+
+JustStakingCredential = #6.121([StakingCredential])
+
+StakingCredential = StakingHash / StakingPtr
+
+StakingHash = #6.121([AddressCredential])
+
+StakingPtr = #6.122([ blockIndex       : int
+                    , txIndex          : int
+                    , certificateIndex : int
+                    ])
+
+Nothing = #6.122([])
+
+ConstantProductPoolDatum = #6.121([])
+
+StableswapPoolDatum = #6.121([ parameterD : int
+                             , scaleA     : int
+                             , scaleB     : int
+                             ])

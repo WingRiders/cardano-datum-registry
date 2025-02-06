@@ -1,0 +1,80 @@
+Request = #6.121([ oil               : int
+                 , beneficiary       : Address
+                 , ownerAddress      : Address
+                 , compensationDatum : any
+                 , datumType         : DatumType
+                 , deadline          : int
+                 , assetASymbol      : bytes
+                 , assetAToken       : bytes
+                 , assetBSymbol      : bytes
+                 , assetBToken       : bytes
+                 , requestAction     : RequestAction
+                 , scaleA            : int
+                 , scaleB            : int
+                 ])
+
+Address = #6.121([ addressCredential        : AddressCredential
+                 , addressStakingCredential : MaybeStakingCredential
+                 ])
+
+AddressCredential = PubKeyCredential / ScriptCredential
+
+PubKeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+MaybeStakingCredential = JustStakingCredential / Nothing
+
+JustStakingCredential = #6.121([StakingCredential])
+
+StakingCredential = StakingHash / StakingPtr
+
+StakingHash = #6.121([AddressCredential])
+
+StakingPtr = #6.122([ blockIndex       : int
+                    , txIndex          : int
+                    , certificateIndex : int
+                    ])
+
+Nothing = #6.122([])
+
+DatumType = NoDatumType / DatumHashType / InlineDatumType
+
+NoDatumType = #6.121([])
+
+DatumHashType = #6.122([])
+
+InlineDatumType = #6.123([])
+
+RequestAction = SwapAction
+                 / AddLiquidityAction
+                 / WithdrawLiquidityAction
+                 / ExtractTreasuryAction
+                 / AddStakingRewardsAction
+                 / ExtractProjectTreasuryAction
+                 / ExtractReserveTreasuryAction
+
+SwapAction = #6.121([ swapDirection   : SwapDirection
+                    , minWantedTokens : int
+                    ])
+
+SwapDirection = SwapAToB / SwapBToA
+
+SwapAToB = #6.121([])
+
+SwapBToA = #6.122([])
+
+AddLiquidityAction = #6.122([ minWantedShares : int
+                            ])
+
+WithdrawLiquidityAction = #6.123([ minWantedA : int
+                                 , minWantedB : int
+                                 ])
+
+ExtractTreasuryAction = #6.124([])
+
+AddStakingRewardsAction = #6.125([])
+
+ExtractProjectTreasuryAction = #6.126([])
+
+ExtractReserveTreasuryAction = #6.127([])

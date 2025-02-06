@@ -1,0 +1,68 @@
+StabilityPoolDatum = StabilityPool / Account / SnapshotEpochToScaleToSum
+
+StabilityPool = #6.121([#6.121([ iAsset : bytes
+                               , snapshot : StabilityPoolSnapshot
+                               , epochToScaleToSum : EpochToScaleToSum
+                               ])])
+
+EpochToScaleToSum = {* EpochWithScale => SPInteger}
+
+EpochWithScale = #6.121([ epoch : int
+                        , scale : int
+                        ])
+
+Account = #6.122([#6.121([ owner : bytes
+                         , iAsset : bytes
+                         , snapshot : StabilityPoolSnapshot
+                         , request : MaybeAccountAction
+                         ])])
+
+StabilityPoolSnapshot = #6.121([ p : SPInteger
+                               , d : SPInteger
+                               , s : SPInteger
+                               , epoch : int
+                               , scale : int
+                               ])
+
+SPInteger = #6.121([int])
+
+MaybeAccountAction = AccountAction / Nothing
+
+AccountAction = #6.121([Create / Adjust / Close])
+
+Create = #6.121([])
+
+Nothing = #6.122([])
+
+Adjust = #6.122([ aAmount : int
+                , aOutputAddress : Address
+                ])
+
+Close = #6.122([Address])
+
+Address = #6.121([ addressCredential        : AddressCredential
+                 , addressStakingCredential : MaybeStakingCredential
+                 ])
+
+AddressCredential = PubKeyCredential / ScriptCredential
+
+PubKeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+MaybeStakingCredential = JustStakingCredential / Nothing
+
+JustStakingCredential = #6.121([StakingCredential])
+
+StakingCredential = StakingHash / StakingPtr
+
+StakingHash = #6.121([AddressCredential])
+
+StakingPtr = #6.122([ blockIndex       : int
+                    , txIndex          : int
+                    , certificateIndex : int
+                    ])
+
+SnapshotEpochToScaleToSum = #6.123([#6.121([ snapshot : EpochToScaleToSum
+                                           , asset    : bytes
+                                           ])])

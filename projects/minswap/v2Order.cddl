@@ -1,0 +1,70 @@
+Order = #6.121([ canceller            : OrderAuthorizationMethod
+               , refundReceiver       : Address
+               , refundReceiverDatum  : OrderExtraDatum
+               , successReceiver      : Address
+               , successReceiverDatum : OrderExtraDatum
+               , lpAsset              : Asset
+               , step                 : OrderStep
+               , maxBatcherFee        : int
+               , expiredOptions       : ExpiredOptions / None
+               ])
+
+OrderAuthorizationMethod = Signature / SpendScript / WithdrawScript / MintScript
+
+Signature = #6.121([bytes])
+
+SpendScript = #6.122([bytes])
+
+WithdrawScript = #6.123([bytes])
+
+MintScript = #6.124([bytes])
+
+OrderExtraDatum = NoDatum / DatumHash / InlineDatum
+
+NoDatum = #6.121([])
+
+DatumHash = #6.122([bytes])
+
+InlineDatum = #6.123([bytes])
+
+Address = #6.121([ paymentCredential: Credential
+                 , maybeStakeCredential : StakeCredential / None
+                 ])
+
+Credential = KeyCredential / ScriptCredential
+
+KeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+StakeCredential = #6.121([#6.121([ Credential ])])
+
+Asset = #6.121([ policyId  : bytes
+               , tokenName : bytes
+               ])
+
+OrderStep = #6.121([ direction        : BToA / AToB
+                   , swapAmountOption : SpecificAmount / All
+                   , minimumReceived  : int
+                   , killable         : PendingOnFailed / KillOnFailed
+                   ])
+
+BToA = #6.121([])
+
+AToB = #6.122([])
+
+OrderSwapAmountOption = SpecificAmount / All
+
+SpecificAmount = #6.121([ swapAmount: int ])
+
+All = #6.122([ deductedAmount : int ])
+
+PendingOnFailed = #6.121([])
+
+KillOnFailed = #6.122([])
+
+ExpiredOptions = #6.121([ expiredTime      : int
+                        , maxCancellingTip : int
+                        ])
+
+None = #6.122([])

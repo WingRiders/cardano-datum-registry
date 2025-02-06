@@ -1,0 +1,62 @@
+PoolConfig = #6.121([ liquidationThreshold        : int
+                    , initialCollateralRatio      : int
+                    , poolFee       : int
+                    , loanFeeDetails : PlatformFeeDetails
+                    , mergeActionFee : int
+                    , minTransition : int
+                    , minLoan : int
+                    , minFee : int
+                    , minLiquidationFee : int
+                    , interestParams : InterestParams
+                    ])
+
+PlatformFeeDetails = #6.121([ tier1Fee       : int
+                            , tier1Threshold : int
+                            , tier2Fee       : int
+                            , tier2Threshold : int
+                            , tier3Fee       : int
+                            , tier3Threshold : int
+                            , liquidationFee : int
+                            , platformFeeCollectorAddress : Address
+                            ])
+
+InterestParams = #6.121([ optimalUtilization : int
+                        , baseInterestRate   : int
+                        , rslope1            : int
+                        , rslope2            : int
+                        ])
+
+Params = #6.121([ collateralAddress     : Address
+                , loanCs                : Asset
+                , collateralCs          : Asset
+                , oracleCollateralAsset : Asset
+                , oracleLoanAsset       : Asset
+                , lpToken               : Asset
+                , poolNftName           : bytes
+                , poolConfigAssetName   : bytes
+                ])
+
+Address = #6.121([ paymentCredential : VerificationKeyCredential / ScriptCredential
+                 , stakeCredential   : MaybeStakeCredentials
+                 ])
+
+VerificationKeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+MaybeStakeCredentials = StakeCredentials / None
+
+StakeCredentials = #6.121([ credentials : Inline / Pointer ])
+
+None = #6.122([])
+
+Inline = #6.121([VerificationKeyCredential / ScriptCredential])
+
+Pointer = #6.122([ slotNumber       : int
+                 , transactionIndex : int
+                 , certificateIndex : int
+                 ])
+
+Asset = #6.121([ policyId  : bytes
+               , assetName : bytes
+               ])

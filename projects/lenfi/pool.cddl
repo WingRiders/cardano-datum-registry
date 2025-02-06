@@ -1,0 +1,40 @@
+Pool = #6.121([ params        : Params
+              , balance       : int
+              , lentOut       : int
+              , totalLpTokens : int
+              ])
+
+Params = #6.121([ collateralAddress     : Address
+                , loanCs                : Asset
+                , collateralCs          : Asset
+                , oracleCollateralAsset : Asset
+                , oracleLoanAsset       : Asset
+                , lpToken               : Asset
+                , poolNftName           : bytes
+                , poolConfigAssetName   : bytes
+                ])
+
+Address = #6.121([ paymentCredential : VerificationKeyCredential / ScriptCredential
+                 , stakeCredential   : MaybeStakeCredentials
+                 ])
+
+VerificationKeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+MaybeStakeCredentials = StakeCredentials / None
+
+StakeCredentials = #6.121([ credentials : Inline / Pointer ])
+
+None = #6.122([])
+
+Inline = #6.121([VerificationKeyCredential / ScriptCredential])
+
+Pointer = #6.122([ slotNumber       : int
+                 , transactionIndex : int
+                 , certificateIndex : int
+                 ])
+
+Asset = #6.121([ policyId  : bytes
+               , assetName : bytes
+               ])

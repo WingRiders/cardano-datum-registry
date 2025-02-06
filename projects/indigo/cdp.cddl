@@ -1,0 +1,21 @@
+CDPContent = #6.121([#6.121([ owner  : MaybePubKeyHash
+                            , iAsset : bytes
+                            , mintedAmount : int
+                            , accumulatedFees : AccumulatedFees
+                            ])])
+
+MaybePubKeyHash = PubKeyHash / Nothing
+
+PubKeyHash = #6.121([bytes])
+
+Nothing = #6.122([])
+
+AccumulatedFees = InterestIAssetAmount / FeesLovelacesAmount
+
+InterestIAssetAmount = #6.121([ lastUpdated  : int
+                              , iAssetAmount : int
+                              ])
+
+FeesLovelacesAmount = #6.122([ treasury    : int
+                             , indyStakers : int
+                             ])

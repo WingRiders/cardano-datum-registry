@@ -1,0 +1,31 @@
+Pool = #6.121([ poolBatchingStakeCredential : StakeCredential
+              , assetA                      : Asset
+              , assetB                      : Asset
+              , totalLiquidity              : int
+              , reserveA                    : int
+              , reserveB                    : int
+              , feeANumerator               : int
+              , feeBNumerator               : int
+              , feeSharingNumerator         : FeeSharingNumerator / None
+              , allowDynamicFee             : True / False
+              ])
+
+StakeCredential = #6.121([Credential])
+
+Credential = KeyCredential / ScriptCredential
+
+KeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+Asset = #6.121([ policyId  : bytes
+               , tokenName : bytes
+               ])
+
+True = #6.122([])
+
+False = #6.121([])
+
+FeeSharingNumerator = #6.121([ feeSharingNumerator : int ])
+
+None = #6.122([])
