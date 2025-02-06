@@ -2,7 +2,7 @@ name: Validate CDDL Files
 
 on:
   pull_request:
-    paths_ignore:
+    paths-ignore:
       - 'test/**'
 
 jobs:

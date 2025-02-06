@@ -6,14 +6,13 @@
     "validate": "bun src/validateCddl.ts",
     "check": "bun biome check src test",
     "fix": "bun run check --write",
-    "test": "vitest"
+    "test": "bun test"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/bun": "latest",
     "@wingriders/datum-explorer-lib": "0.1.0",
-    "fast-glob": "^3.3.3",
-    "vitest": "^3.0.5"
+    "fast-glob": "^3.3.3"
   },
   "packageManager": "bun@1.1.43"
 }
