@@ -1,0 +1,89 @@
+name: Mirror commits
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PUBLIC_REPO: 'WingRiders/cardano-datum-registry'  # Define public repo here
+
+jobs:
+  mirror:
+    name: Mirror commits to public repo
+    runs-on: ubuntu-latest
+    if: endsWith(github.repository, '-private') # Prevent execution in the public repo
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Import SSH key
+        shell: bash
+        env:
+          TECHRIDER_SSH_PUBLIC_KEY: ${{ secrets.TECHRIDER_SSH_PUBLIC_KEY }}
+          TECHRIDER_SSH_PRIVATE_KEY: ${{ secrets.TECHRIDER_SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$TECHRIDER_SSH_PUBLIC_KEY" >~/.ssh/id_ed25519.pub
+          echo "$TECHRIDER_SSH_PRIVATE_KEY" >~/.ssh/id_ed25519
+          chmod 700 ~/.ssh
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/id_ed25519.pub
+
+      - name: Fetch public remote
+        shell: bash
+        run: |
+          git remote add public git@github.com:$PUBLIC_REPO.git
+          git fetch public main || echo "No remote public repo branch to fetch"
+
+      - name: Set TechRiderWR as the author
+        shell: bash
+        run: |
+          git config --local user.name "TechRiderWR"
+          git config --local user.email "techrider@wingriders.com"
+
+      - name: Initialize with empty initial commit if no public main branch
+        shell: bash
+        run: |
+          if ! git ls-remote --exit-code public main; then
+            # Save the branch name
+            ORIGINAL_BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
+            echo "Original branch name was $ORIGINAL_BRANCH_NAME"
+
+            # Check out a temporary orphan branch
+            git checkout --orphan temp
+          
+            # Remove all files (since it's an orphan branch)
+            git rm -rf .
+            
+            # Create an empty commit to initialize the branch
+            git commit --allow-empty -m "Initial empty commit"
+            
+            # Push the empty commit to the remote `public/main` branch
+            git push public temp:main
+          
+            # Checkout original branch back
+            git checkout $ORIGINAL_BRANCH_NAME
+          fi
+
+      - name: Rewrite commit history
+        shell: bash
+        run: |
+          # Rebase all private commits on the public ones
+          git rebase public/main --exec "git commit --amend --no-edit --reset-author --allow-empty"
+          
+          # Identify the first divergent commit (the first commit on the private branch not in public)
+          firstDivergentCommit=$(git log --pretty="format:%h" | tail -n $(($(git rev-list --count public/main)+1)) | head -1)
+          
+          # Filter out the Co-authored-by lines and continue with the history cleaning
+          FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch --msg-filter "sed -n '/Co-authored-by/Iq;p'" "$firstDivergentCommit~1..HEAD"
+
+          # Finally, show the commit log for verification
+          git log --pretty="format:%an <%ae> (%h): %s"
+
+      - name: Push to public repo
+        shell: bash
+        run: |
+          git push public HEAD:main # HEAD for case the job is not run on the main branch
