@@ -1,0 +1,19 @@
+LaunchpadNode =
+    #6.121([ key         : MaybeNodeKey
+           , next        : MaybeNodeKey
+           , createdTime : int
+           , committed   : int
+           ])
+
+MaybeNodeKey =
+    JustNodeKey
+  / Nothing
+
+Nothing = #6.122([])
+
+JustNodeKey = #6.121([NodeKey])
+
+NodeKey =
+    #6.121([ nodeOwner : bytes
+           , index     : int
+           ])

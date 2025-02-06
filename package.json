@@ -1,0 +1,17 @@
+{
+  "name": "@wingriders/cardano-datum-registry",
+  "version": "1.0.0",
+  "description": "An off-chain registry to maintain schemas for datum definition for the dApps on Cardano",
+  "scripts": {
+    "validate": "bun src/validateCddl.ts",
+    "check": "bun biome check src",
+    "fix": "bun run check --write"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/bun": "latest",
+    "@wingriders/datum-explorer-lib": "0.1.0",
+    "fast-glob": "^3.3.3"
+  },
+  "packageManager": "bun@1.1.43"
+}
