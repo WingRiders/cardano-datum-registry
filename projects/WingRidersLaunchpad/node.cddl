@@ -1,4 +1,4 @@
-LaunchpadNode =
+Node =
     #6.121([ key         : MaybeNodeKey
            , next        : MaybeNodeKey
            , createdTime : int

@@ -11,6 +11,7 @@ These readable representations can be integrated into various clients such as wa
 The Cardano Datum Registry provides CDDL schema definitions that can be used to parse CBOR data into a readable format. This parsing is done using the [Datum Explorer library](https://github.com/WingRiders/datum-explorer).
 
 ### Steps to use the registry:
+
 1. **Fetch CDDL schemas**: Clone the repository or download the relevant CDDL files from the `projects/` folder.
 2. **Use the Datum Explorer library**: Pass the CDDL schema and CBOR data to the Datum Explorer library to parse and convert the CBOR into a structured, readable JavaScript object.
 3. **Display parsed data**: Integrate the structured data into your client (wallet, explorer, or DApp).
@@ -24,20 +25,30 @@ Refer to the [Datum Explorer documentation](https://github.com/wingriders/datum-
 Contributions to the Cardano Datum Registry are welcome! Follow the guidelines below to ensure consistency and maintain quality across schema definitions.
 
 ### Contribution guidelines
+
 - **Project Structure**:  
   CDDL schema definitions must be organized within the `projects/` folder. Each project should have its own subfolder, with CDDL files placed inside.
 
   ```
   projects/
-    └── myProject/
+    └── MyProject/
         └── exampleSchema.cddl
   ```
 
 - **File Naming**:  
   CDDL files should follow the **lowerCamelCase** naming convention and use the `.cddl` extension. For example:
+
   ```
   exampleSchema.cddl
   transactionOutput.cddl
+  ```
+
+  Project folders should match the exact name of the project (without spaces). The folder name will be used as the project name in the [Datum Explorer app](https://github.com/WingRiders/datum-explorer). If your project has multiple versions, you can use a different folder for each version, making it easier for users to navigate the UI. For example:
+
+  ```
+  WingRidersDexV2
+  MinswapV2
+  Lenfi
   ```
 
 - **Schema Format and Structure**:  
@@ -45,14 +56,15 @@ Contributions to the Cardano Datum Registry are welcome! Follow the guidelines b
 
 - **CI Validation**:  
   The repository includes a continuous integration (CI) pipeline that validates each pull request:
-    - **File name format**: Ensures compliance with the lowerCamelCase naming convention and `.cddl` extension.
-    - **CDDL validation**: Checks that each CDDL file is syntactically correct and conforms to the supported feature set.
+  - **File name format**: Ensures compliance with the lowerCamelCase naming convention and `.cddl` extension.
+  - **CDDL validation**: Checks that each CDDL file is syntactically correct and conforms to the supported feature set.
 
 ### How to test your schema locally
 
 To ensure your CDDL schema works as expected, you can test it locally before submitting a pull request.
 
 1. Install [bun](https://bun.sh/)
+
    ```shell
    curl -fsSL https://bun.sh/install | bash
    ```
@@ -67,6 +79,7 @@ To ensure your CDDL schema works as expected, you can test it locally before sub
 ---
 
 ### Submitting a pull request
+
 1. **Fork the repository** and create a new branch for your contribution.
 2. **Add your CDDL schema** in the appropriate subfolder under `projects/`.
 3. **Test your schema** using the Datum Explorer library (optional but recommended).
