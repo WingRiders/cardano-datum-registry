@@ -59,9 +59,11 @@ Contributions to the Cardano Datum Registry are welcome! Follow the guidelines b
   - **File name format**: Ensures compliance with the lowerCamelCase naming convention and `.cddl` extension.
   - **CDDL validation**: Checks that each CDDL file is syntactically correct and conforms to the supported feature set.
 
-### How to test your schema locally
+### How to test your schema
 
-To ensure your CDDL schema works as expected, you can test it locally before submitting a pull request.
+To ensure your CDDL schema works as expected, you can test it locally or using hosted version before submitting a pull request.
+
+#### Test locally
 
 1. Install [bun](https://bun.sh/)
 
@@ -75,6 +77,10 @@ To ensure your CDDL schema works as expected, you can test it locally before sub
    bun install
    bun validate
    ```
+
+#### Test using the hosted Datum Explorer
+
+You can also validate your schema using hosted version at https://datum-explorer.wingriders.com/.
 
 ---
 
