@@ -43,21 +43,97 @@ Asset = #6.121([ policyId  : bytes
                , tokenName : bytes
                ])
 
-OrderStep = #6.121([ direction        : BToA / AToB
-                   , swapAmountOption : SpecificAmount / All
-                   , minimumReceived  : int
-                   , killable         : PendingOnFailed / KillOnFailed
-                   ])
+OrderStep = SwapExactIn / StopLoss / OCO / SwapExactOut / Deposit
+
+SwapExactIn = #6.121([ direction        : BToA / AToB
+                     , swapAmountOption : SwapAmountOption
+                     , minimumReceived  : int
+                     , killable         : PendingOnFailed / KillOnFailed
+                     ])
+
+StopLoss = #6.122([ direction        : BToA / AToB
+                  , swapAmountOption : SwapAmountOption
+                  , stopLossReceive  : int
+                  ])
+
+OCO = #6.123([ direction        : BToA / AToB
+             , swapAmountOption : SwapAmountOption
+             , minimumReceived  : int
+             , stopLossReceive  : int
+             ])
+
+SwapExactOut = #6.124([ direction               : BToA / AToB
+                      , maximumSwapAmountOption : SwapAmountOption
+                      , expectedReceive         : int
+                      , killable                : PendingOnFailed / KillOnFailed
+                      ])
+
+Deposit = #6.125([ depositAmountOption : DepositAmountOption
+                 , minimumLp           : int
+                 , killable            : PendingOnFailed / KillOnFailed
+                 ])
+
+Withdraw = #6.126([ withdrawAmountOption : WithdrawAmountOption
+                  , minimumAssetA        : int
+                  , minimumAssetB        : int
+                  , killable             : PendingOnFailed / KillOnFailed
+                  ])
+
+ZapOut = #6.127([ withdrawAmountOption : WithdrawAmountOption
+                , minimumReceive       : int
+                , killable             : PendingOnFailed / KillOnFailed
+                ])
+
+PartialSwap = #6.128([ direction                 : BToA / AToB
+                     , totalSwapAmount           : int
+                     , ioRatioNumerator          : int
+                     , ioRatioDenominator        : int
+                     , hops                      : int
+                     , minimumSwapAmountRequired : int
+                     , maxBatcherFeeEachTime     : int
+                     ])
+
+WithdrawImbalance = #6.129([ withdrawAmountOption : WithdrawAmountOption
+                           , ratioAssetA          : int
+                           , ratioAssetB          : int
+                           , minimumAssetA        : int
+                           , killable             : PendingOnFailed / KillOnFailed
+                           ])
+
+SwapMultiRouting = #6.130([ routings         : SwapRoutings
+                          , swapAmountOption : SwapAmountOption
+                          , minimumReceive   : int
+                          ])
+
+Donation = #6.131([])
+
+SwapRoutings = [ * SwapRouting ]
+
+SwapRouting = #6.121([ lpAsset : Asset
+                     , direction : BToA / AToB
+                     ])
 
 BToA = #6.121([])
 
 AToB = #6.122([])
 
-OrderSwapAmountOption = SpecificAmount / All
+SwapAmountOption = SpecificSwapAmount / SwapAll
 
-SpecificAmount = #6.121([ swapAmount: int ])
+SpecificSwapAmount = #6.121([ swapAmount: int ])
 
-All = #6.122([ deductedAmount : int ])
+SwapAll = #6.122([ deductedAmount : int ])
+
+DepositAmountOption = SpecificDepositAmount / DepositAll
+
+SpecificDepositAmount = #6.121([ depositAmountA: int, depositAmountB: int ])
+
+DepositAll = #6.122([ deductedAmountA : int, deductedAmountB : int ])
+
+WithdrawAmountOption = SpecificWithdrawAmount / WithdrawAll
+
+SpecificWithdrawAmount = #6.121([ withdrawalLpAmount: int ])
+
+WithdrawAll = #6.122([ deductedAmountLp : int ])
 
 PendingOnFailed = #6.121([])
 
