@@ -1,0 +1,18 @@
+RedeemDatum = #6.121([ poolNft : Asset
+                     , poolX : Asset
+                     , poolY : Asset
+                     , poolLp : Asset
+                     , exFee : int
+                     , rewardPkh : bytes
+                     , stakePkh : MaybePubKeyHash
+                     ])
+
+Asset = #6.121([ policyId : bytes
+               , tokenName : bytes
+               ])
+
+MaybePubKeyHash = JustPubKeyHash / Nothing
+
+JustPubKeyHash = #6.121([bytes])
+
+Nothing = #6.122([])

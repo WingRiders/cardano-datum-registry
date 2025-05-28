@@ -1,0 +1,28 @@
+TreasuryPoolDatum = #6.121([ poolNft : Asset
+                           , poolX : Asset
+                           , poolY : Asset
+                           , poolLq : Asset
+                           , poolFeeNum : int
+                           , treasuryFee : int
+                           , treasuryX : int
+                           , treasuryY : int
+                           , daoPolicy : DaoPolicy
+                           , lqBound : int
+                           , treasuryAddress : ValidatorHash
+                           ])
+
+Asset = #6.121([ policyId : bytes
+               , tokenName : bytes
+               ])
+
+DaoPolicy = [StakingCredential]
+
+StakingCredential = #6.121([Credential])
+
+Credential = KeyCredential / ScriptCredential
+
+KeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+ValidatorHash = bytes
