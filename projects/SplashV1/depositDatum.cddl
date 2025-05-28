@@ -1,0 +1,19 @@
+DepositDatum = #6.121([ poolNft : Asset
+                      , tokenA : Asset
+                      , tokenB : Asset
+                      , tokenLp : Asset
+                      , exFee : int
+                      , rewardPkh : bytes
+                      , stakePkh : MaybePubKeyHash
+                      , collateralAda : int
+                      ])
+
+Asset = #6.121([ policyId : bytes
+               , tokenName : bytes
+               ])
+
+MaybePubKeyHash = JustPubKeyHash / Nothing
+
+JustPubKeyHash = #6.121([bytes])
+
+Nothing = #6.122([])

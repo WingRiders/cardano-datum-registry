@@ -1,0 +1,37 @@
+LimitOrderDatum = #6.121([ tag : bytes
+                         , beacon : bytes
+                         , input : Asset
+                         , tradableInput : int
+                         , costPerExStep : int
+                         , minMarginalOutput : int
+                         , output : Asset
+                         , basePrice : Rational
+                         , fee : int
+                         , redeemerAddress : Address
+                         , cancellationPkh : bytes
+                         , permittedExecutors : BytesSingletonArray
+                         ])
+
+Asset = #6.121([ policyId : bytes
+               , tokenName : bytes
+               ])
+
+BytesSingletonArray = [bytes]
+
+Rational = #6.121([ num: int
+                  , denom: int
+                  ])
+
+Address = #6.121([ paymentCredential: Credential
+                 , maybeStakeCredential : StakeCredential / None
+                 ])
+
+Credential = KeyCredential / ScriptCredential
+
+KeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+StakeCredential = #6.121([#6.121([ Credential ])])
+
+None = #6.122([])
