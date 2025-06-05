@@ -1,0 +1,81 @@
+OrderDatum = #6.121([ poolIdent      : OptionIdent
+                    , owner          : MultiSigScript
+                    , maxProtocolFee : int
+                    , destination    : Destination
+                    , details        : Strategy / Swap / Deposit / Withdrawal / Donation / Record
+                    , extension      : any
+                    ])
+
+OptionIdent = Ident / None
+
+Ident = #6.121([bytes])
+
+None = #6.122([])
+
+MultiSigScripts = [ * MultiSigScript ]
+
+MultiSigScript = MultiSigScriptSignature / MultiSigScriptAllOf / MultiSigScriptAnyOf / MultiSigScriptAtLeast / MultiSigScriptBefore / MultiSigScriptAfter / MultiSigScriptScript
+
+MultiSigScriptSignature = #6.121([keyHash : bytes])
+
+MultiSigScriptAllOf = #6.122([MultiSigScripts])
+
+MultiSigScriptAnyOf = #6.123([MultiSigScripts])
+
+MultiSigScriptAtLeast = #6.124([ required : int
+                               , scripts : MultiSigScripts
+                               ])
+
+MultiSigScriptBefore = #6.125([ before : int
+                              , time   : int
+                              ])
+
+MultiSigScriptAfter = #6.126([ after : int
+                             , time  : int
+                             ])
+
+MultiSigScriptScript = #6.127([scriptHash : bytes])
+
+Destination = Fixed / Self
+
+Fixed = #6.121([ address : Address
+               , datum   : Datum
+               ])
+
+Address = #6.121([ paymentCredential: Credential
+                 , maybeStakeCredential : StakeCredential / None
+                 ])
+
+Credential = KeyCredential / ScriptCredential
+
+KeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+StakeCredential = #6.121([#6.121([ Credential ])])
+
+Datum = NoDatum / DatumHash / InlineDatum
+
+NoDatum = #6.121([])
+
+DatumHash = #6.122([bytes])
+
+InlineDatum = #6.123([bytes])
+
+Self = #6.122([])
+
+Strategy = #6.121([])
+
+Swap = #6.122([ offer       : SingletonValue
+              , minReceived : SingletonValue
+              ])
+
+SingletonValue = [policyId: bytes, assetName: bytes, quantity: int]
+
+Deposit = #6.123([assets: [assetA: SingletonValue, assetB: SingletonValue]])
+
+Withdrawal = #6.124([amount: SingletonValue])
+
+Donation = #6.125([assets: [assetA: SingletonValue, assetB:SingletonValue]])
+
+Record = #6.126([policy: [policyId: bytes, assetName: bytes]])

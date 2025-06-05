@@ -1,0 +1,70 @@
+PoolScoopRedeemer = #6.122([PoolScoopRedeemerContent])
+
+PoolScoopRedeemerContent = #6.121([ signatoryIndex : int
+                                  , scooperIndex : int
+                                  , inputOrder : InputOrder])
+
+InputOrder = [ * InputOrderItem ]
+
+InputOrderItem = [ inputIndex : int
+                 , signedStrategyExecution : MaybeSignedStrategyExecution
+                 , dummy : int
+                 ]
+
+MaybeSignedStrategyExecution = SignedStrategyExecution / None
+
+SignedStrategyExecution = #6.121([ execution : StrategyExecution
+                                 , signature : MaybeSignature
+                                 ])
+
+None = #6.122([])
+
+StrategyExecution = #6.121([ txRef : OutputReference
+                           , validityRange : ValidityRange
+                           , details : Strategy / Swap / Deposit / Withdrawal / Donation / Record
+                           , extensions : any
+                           ])
+
+OutputReference = #6.121([ txHash : bytes
+                         , outputIndex : int
+                         ])
+
+ValidityRange = #6.121([ from : IntervalBound
+                       , to : IntervalBound
+                       ])
+
+IntervalBound = #6.121([ type : IntervalBoundType
+                       , isInclusive : True / False
+                       ])
+
+IntervalBoundType = NegativeInfinity / FiniteInt / PositiveInfinity
+
+NegativeInfinity = #6.121([])
+
+FiniteInt = #6.122([int])
+
+PositiveInfinity = #6.123([])
+
+True = #6.122([])
+
+False = #6.121([])
+
+Strategy = #6.121([])
+
+Swap = #6.122([ offer       : SingletonValue
+              , minReceived : SingletonValue
+              ])
+
+SingletonValue = [policyId: bytes, assetName: bytes, quantity: int]
+
+Deposit = #6.123([assets: [assetA: SingletonValue, assetB: SingletonValue]])
+
+Withdrawal = #6.124([amount: SingletonValue])
+
+Donation = #6.125([assets: [assetA: SingletonValue, assetB:SingletonValue]])
+
+Record = #6.126([policy: [policyId: bytes, assetName: bytes]])
+
+MaybeSignature = Signature / None
+
+Signature = #6.121([bytes])
