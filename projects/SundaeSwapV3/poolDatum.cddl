@@ -1,0 +1,43 @@
+PoolDatum = #6.121([ identifier           : bytes
+                   , assets               : Assets
+                   , circulatingLp        : int
+                   , bidFeesPer10Thousand : int
+                   , askFeesPer10Thousand : int
+                   , feeManager           : MaybeMultiSigScript
+                   , marketOpen           : int
+                   , protocolFees         : int
+                   ])
+
+Assets = [assetA: AssetClass, assetB: AssetClass]
+
+AssetClass = [policyId: bytes, assetName: bytes]
+
+MaybeMultiSigScript = JustMultiSigScript / None
+
+JustMultiSigScript = #6.121([MultiSigScript])
+
+None = #6.122([])
+
+MultiSigScripts = [ * MultiSigScript ]
+
+MultiSigScript = MultiSigScriptSignature / MultiSigScriptAllOf / MultiSigScriptAnyOf / MultiSigScriptAtLeast / MultiSigScriptBefore / MultiSigScriptAfter / MultiSigScriptScript
+
+MultiSigScriptSignature = #6.121([keyHash : bytes])
+
+MultiSigScriptAllOf = #6.122([MultiSigScripts])
+
+MultiSigScriptAnyOf = #6.123([MultiSigScripts])
+
+MultiSigScriptAtLeast = #6.124([ required : int
+                               , scripts : MultiSigScripts
+                               ])
+
+MultiSigScriptBefore = #6.125([ before : int
+                              , time   : int
+                              ])
+
+MultiSigScriptAfter = #6.126([ after : int
+                             , time  : int
+                             ])
+
+MultiSigScriptScript = #6.127([scriptHash : bytes])
