@@ -1,0 +1,30 @@
+Pool = #6.121([ assetA         : Asset
+              , assetB         : Asset
+              , totalLiquidity : int
+              , rootKLast      : int
+              , feeSharing     : PoolFeeSharing / None
+              ])
+
+Asset = #6.121([ policyId  : bytes
+               , tokenName : bytes
+               ])
+
+PoolFeeSharing = #6.121([#6.121([ feeTo          : Address
+                                , feeToDatumHash : DatumHash / None
+                                ])])
+
+Address = #6.121([ paymentCredential    : Credential
+                 , maybeStakeCredential : StakeCredential / None
+                 ])
+
+Credential = KeyCredential / ScriptCredential
+
+KeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+StakeCredential = #6.121([#6.121([ Credential ])])
+
+None = #6.122([])
+
+DatumHash = #6.121([bytes])
