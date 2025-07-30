@@ -1,0 +1,47 @@
+OrderDatum = #6.121([ sender            : Address
+                    , receiver          : Address
+                    , receiverDatumHash : DatumHash / None
+                    , step              : OrderStep
+                    , batcherFee        : int
+                    , depositADA        : int
+                    ])
+
+Address = #6.121([ paymentCredential: Credential
+                 , maybeStakeCredential : StakeCredential / None
+                 ])
+
+Credential = KeyCredential / ScriptCredential
+
+KeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+StakeCredential = #6.121([#6.121([ Credential ])])
+
+DatumHash = #6.121([bytes])
+
+None = #6.122([])
+
+OrderStep = SwapExactIn / SwapExactOut / Deposit / Withdraw / ZapIn
+
+SwapExactIn = #6.121([ desiredAsset    : Asset
+                     , minimumReceived : int
+                     ])
+
+SwapExactOut = #6.122([ desiredAsset     : Asset
+                      , expectedReceived : int
+                      ])
+
+Deposit = #6.123([ minimumLP : int ])
+
+Withdraw = #6.124([ minimumAssetA : int
+                  , minimumAssetB : int
+                  ])
+
+ZapIn = #6.125([ desiredAsset : Asset
+               , minimumLP    : int
+               ])
+
+Asset = #6.121([ policyId  : bytes
+               , tokenName : bytes
+               ])
