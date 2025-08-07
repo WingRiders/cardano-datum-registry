@@ -1,0 +1,21 @@
+Order = #6.121([ owner        : bytes
+               , orderDetails : AddLiquidity / RemoveLiquidity / Serve / TradeAToB / TradeBToA / ZapInA / ZapInB
+               ])
+
+AddLiquidity = #6.121([ minWantedShares: int ])
+
+RemoveLiquidity = #6.122([ RemoveLiquidityDetails ])
+
+RemoveLiquidityDetails = #6.121([ minWantedTokensA : int
+                                , minWantedTokensB : int
+                                ])
+
+Serve = #6.123([])
+
+TradeAToB = #6.124([ minWantedTokens: int ])
+
+TradeBToA = #6.125([ minWantedTokens: int ])
+
+ZapInA = #6.126([ minWantedShares: int ])
+
+ZapInB = #6.127([ minWantedShares: int ])

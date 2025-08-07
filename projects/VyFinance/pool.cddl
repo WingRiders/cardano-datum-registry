@@ -1,0 +1,4 @@
+Pool = #6.121([ treasuryA    : int
+              , treasuryB    : int
+              , issuedShares : int
+              ])
