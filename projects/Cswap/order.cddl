@@ -1,0 +1,34 @@
+Order = #6.121([ address      : Address
+               , targetAssets : Assets
+               , inputAssets  : Assets
+               , orderType    : Swap / ZapIn / ZapOut
+               , slippage     : int
+               , platformFee  : int
+               ])
+
+Address = #6.121([ paymentCredential: Credential
+                 , maybeStakeCredential : StakeCredential / None
+                 ])
+
+Credential = KeyCredential / ScriptCredential
+
+KeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+StakeCredential = #6.121([#6.121([ Credential ])])
+
+None = #6.122([])
+
+Assets = [ * Asset ]
+
+Asset = [ policy : bytes
+        , name   : bytes
+        , amount : int
+        ]
+
+Swap = #6.121([])
+
+ZapIn = #6.122([])
+
+ZapOut = #6.123([])
