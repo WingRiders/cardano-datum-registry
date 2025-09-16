@@ -1,0 +1,9 @@
+Pool = #6.121([ totalLpTokens : int
+              , poolFee       : int
+              , quotePolicy   : bytes
+              , quoteName     : bytes
+              , basePolicy    : bytes
+              , baseName      : bytes
+              , lpTokenPolicy : bytes
+              , lpTokenName   : bytes
+              ])
