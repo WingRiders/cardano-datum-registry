@@ -1,0 +1,31 @@
+Oracle = #6.121([ _0 : bytes
+                , oracleFields: OracleFields
+                , oracleTokenPolicyId:bytes
+                ])
+
+OracleFields = #6.121([ adaUsdExchangeRate : Rational
+                      , validityRange : ValidityRange
+                      , expressedIn : bytes
+                      ])
+
+Rational = #6.121([ denominator : int
+                  , numerator   : int
+                  ])
+
+ValidityRange = #6.121([ lowerBound : Bound
+                       , upperBound : Bound
+                       ])
+
+Bound = #6.121([ value : NestedAny / Value
+               , _1    : MaybeAny
+               ])
+
+NestedAny = #6.121([ #6.121([ any ]) ])
+
+Value = #6.122([ int ])
+
+MaybeAny = Any / None
+
+Any = #6.121(any)
+
+None = #6.122([])

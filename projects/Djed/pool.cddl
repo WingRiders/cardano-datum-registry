@@ -1,0 +1,27 @@
+Pool = #6.121([ adaInPool            : int
+              , djedInCirculation    : int
+              , shenInCirculation    : int
+              , lastAction           : Action
+              , minAda               : int
+              , _1                   : int
+              , _2                   : MaybeAny
+              , mintingPolicyId      : bytes
+              , mintingPolicyUniqRef : OutputReference
+              , _3                   : OutputReference
+              ])
+
+Action = #6.121([#6.121([ order : OutputReference
+                        , time : int
+                        ])])
+
+OutputReference = #6.121([ txHash      : TxHash
+                         , outputIndex : int
+                         ])
+
+TxHash = #6.121([ bytes ])
+
+MaybeAny = Any / None
+
+Any = #6.121(any)
+
+None = #6.122([])
