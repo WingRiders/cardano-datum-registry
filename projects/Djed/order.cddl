@@ -1,0 +1,38 @@
+Order = #6.121([ action             : MintDjed / BurnDjed / MintShen / BurnShen
+               , creatorAddress     : Address
+               , adaUsdExchangeRate : Rational
+               , deadline           : int
+               , ticketPolicyId     : bytes
+               ])
+
+MintDjed = #6.121([ djedToMint : int
+                  , adaToPool  : int
+                  ])
+
+BurnDjed = #6.122([ djedToBurn : int
+                  ])
+
+MintShen = #6.123([ shenToMint : int
+                  , adaToPool : int
+                  ])
+
+BurnShen = #6.124([ shenToBurn : int
+                  ])
+
+Address = #6.121([ paymentCredential: Credential
+                 , maybeStakeCredential : StakeCredential / None
+                 ])
+
+Credential = KeyCredential / ScriptCredential
+
+KeyCredential = #6.121([bytes])
+
+ScriptCredential = #6.122([bytes])
+
+StakeCredential = #6.121([#6.121([ Credential ])])
+
+None = #6.122([])
+
+Rational = #6.121([ denominator : int
+                  , numerator   : int
+                  ])
